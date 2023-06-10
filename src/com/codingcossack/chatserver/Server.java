@@ -46,8 +46,6 @@ public class Server {
                 // 'true' argument indicates that PrintWriter should auto-flush the stream.
                 PrintWriter writer = new PrintWriter(outputStream, true);
 
-                // From here onwards, you can read lines of text from 'reader' and write lines
-                // of text to 'writer'. Continue with the chat logic.
             }
 
         } catch (IOException e) {
