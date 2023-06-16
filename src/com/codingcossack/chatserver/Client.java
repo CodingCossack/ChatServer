@@ -29,21 +29,36 @@ public class Client {
             // Create a BufferedReader to read input from the console (keyboard)
             BufferedReader consoleReader = new BufferedReader(new InputStreamReader(System.in));
 
-            while (true) {
-                System.out.print("Enter a message to send to the server: ");
-                // Read a message from the user's input (console).
-                String message = consoleReader.readLine();
-                // Break the loop if the user wants to quit. For example, if the message is "quit".
-                if ("quit".equalsIgnoreCase(message)) {
-                    break;
+            String serverPrompt = reader.readLine();
+            System.out.println(serverPrompt); // Should print "Enter username:"
+            String username = consoleReader.readLine();
+            writer.println(username);
+
+            serverPrompt = reader.readLine();
+            System.out.println(serverPrompt); // Should print "Enter password:"
+            String password = consoleReader.readLine();
+            writer.println(password);
+
+            String loginResult = reader.readLine();
+            System.out.println(loginResult);
+
+            if ("Login succesfull".equals(loginResult)) {
+                while (true) {
+                    System.out.print("Enter a message to send to the server: ");
+                    // Read a message from the user's input (console).
+                    String message = consoleReader.readLine();
+                    // Break the loop if the user wants to quit. For example, if the message is "quit".
+                    if ("quit".equalsIgnoreCase(message)) {
+                        break;
+                    }
+                    // Send the message to the server.
+                    writer.println(message);
+                    // 3. Read the server's response and print it.
+                    String serverResponse = reader.readLine();
+                    System.out.println("Server responded: " + serverResponse);
                 }
-                // Send the message to the server.
-                writer.println(message);
-                // 3. Read the server's response and print it.
-                String serverResponse = reader.readLine();
-                System.out.println("Server responded: " + serverResponse);
             }
-        } catch (IOException e) {
+        } catch(IOException e){
             e.printStackTrace();
         }
     }

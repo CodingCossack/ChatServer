@@ -2,14 +2,11 @@ package com.codingcossack.chatserver;
 
 import java.io.*;
 import java.net.Socket;
-import java.io.InputStream;             // For reading bytes from client socket
-import java.io.OutputStream;            // For writing bytes to client socket
-import java.io.BufferedReader;          // For reading text from a character-input stream
-import java.io.InputStreamReader;       // For converting bytes to characters
-import java.io.PrintWriter;             // For writing text to a character-output stream
 
 public class ClientHandler implements Runnable {
-    private Socket clientSocket;
+    // Wrap the output stream with a PrintWriter, auto-flushing enabled, to easily write text lines to the client
+    private PrintWriter writer;
+    private final Socket clientSocket;
     public ClientHandler(Socket clientSocket) {
         this.clientSocket = clientSocket;
     }
@@ -27,40 +24,65 @@ public class ClientHandler implements Runnable {
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 
             // Wrap the output stream with a PrintWriter, auto-flushing enabled, to easily write text lines to the client
-            PrintWriter writer = new PrintWriter(outputStream, true);
+            writer = new PrintWriter(outputStream, true);
 
-            // Variable to store messages received from the client
-            String message;
+            writer.println("Enter username: ");
+            String username = reader.readLine();
 
-            // Infinite loop to continually read messages from the client
-            while (true) {
-                // Read a line of text from the client
-                message = reader.readLine();  // This could be null if the client has disconnected
+            writer.println("Enter password: ");
+            String password = reader.readLine();
 
-                // If the message is null, the client has likely disconnected, so exit the loop
-                if (message == null) {
-                    break;
+            if (Server.userCredentials.containsKey(username) && Server.userCredentials.get(username).equals(password)) {
+                writer.println("Login successful");
+                // After successful authentication
+                Server.clients.add(this);
+
+                // Infinite loop to continually read messages from the client
+                while (true) {
+                    // Read a line of text from the client
+                    String message = reader.readLine();  // This could be null if the client has disconnected
+
+                    // If the message is null, the client has likely disconnected, so exit the loop
+                    if (message == null) {
+                        break;
+                    }
+
+                    // Output the received message to the server's console
+                    System.out.println("Received from client: " + message);
+
+                    // Send a response back to the client
+                    broadcastMessage("message from " + username + ": " + message);
+
+                    // If the client sends the text "quit", exit the loop
+                    if ("quit".equalsIgnoreCase(message)) {
+                        break;
+                    }
                 }
-
-                // Output the received message to the server's console
-                System.out.println("Received from client: " + message);
-
-                // Send a response back to the client
-                writer.println("Server received: " + message);
-
-                // If the client sends the text "quit", exit the loop
-                if ("quit".equalsIgnoreCase(message)) {
-                    break;
-                }
+            } else {
+                writer.println("Login failed");
             }
-
-            // Close the client socket
-            clientSocket.close();
-            System.out.println("Client disconnected");
-
         } catch (IOException e) {
-            // Output any IO exceptions that occur
-            e.printStackTrace();
+                // Output any IO exceptions that occur
+                e.printStackTrace();
+            } finally {
+                try {
+                    clientSocket.close();
+                } catch (IOException e){
+                    e.printStackTrace();
+                }
+                // This block will run whether an exception is thrown or not
+                Server.clients.remove(this);    // Remove client on disconnect
+                System.out.println("Client disconnected");
             }
+
+
+    }
+    public void broadcastMessage(String message) {
+        // Iterate through the list of connected clients and send the message to each one
+        synchronized (Server.clients) {
+            for (ClientHandler client : Server.clients) {
+                client.writer.println(message);
+            }
+        }
     }
 }

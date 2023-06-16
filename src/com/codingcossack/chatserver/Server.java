@@ -5,23 +5,23 @@ package com.codingcossack.chatserver;
 import java.net.ServerSocket;          // For listening for client connections
 import java.io.IOException;             // For handling input/output exceptions
 import java.net.Socket;                 // For communication between server and client
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class Server {
+
+    // A map to store username and password pairs.
+    static Map<String, String> userCredentials = new HashMap<>();
+    // A synchronized list to store connected clients
+    static final List<ClientHandler> clients = Collections.synchronizedList(new ArrayList<>());
+
+    static {
+        userCredentials.put("user1", "password1");
+        userCredentials.put("user2", "password2");
+    }
 
     public static void main(String[] args) {
         // Define the port number on which the server will listen for connections
         int portNumber = 8080;
-        // A map to store username and password pairs.
-        static Map<String, String> userCredentials = new HashMap<>();
-
-        static {
-            userCredentials.put("user1", "password1");
-            userCredentials.put("user2", "password2");
-        }
 
         // Try-with-resources block to auto-close resources and handle exceptions
         try (ServerSocket serverSocket = new ServerSocket(portNumber)) {
