@@ -46,13 +46,18 @@ public class ClientHandler implements Runnable {
                     if (message == null) {
                         break;
                     }
-
-                    // Output the received message to the server's console
-                    System.out.println("Received from client: " + message);
-
-                    // Send a response back to the client
-                    broadcastMessage("message from " + username + ": " + message);
-
+                    // Check if the message is a private message
+                    if(message.startsWith("/msg")) {
+                        // Split the message into parts
+                        String[] parts = message.split(" ", 3); // Limiting to 3 parts: "/msg", "[username]", "[message]"
+                        String recipientUsername = parts[1];
+                        String actualMessage = parts[2];
+                    } else {
+                        // Output the received message to the server's console
+                        System.out.println("Received from client: " + message);
+                        // Send a response back to the client
+                        broadcastMessage("Message from " + username + ": " + message);
+                    }
                     // If the client sends the text "quit", exit the loop
                     if ("quit".equalsIgnoreCase(message)) {
                         break;
