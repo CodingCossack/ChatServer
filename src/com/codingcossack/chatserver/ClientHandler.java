@@ -10,6 +10,14 @@ public class ClientHandler implements Runnable {
     public ClientHandler(Socket clientSocket) {
         this.clientSocket = clientSocket;
     }
+    private String username;
+    private String password;
+    private String getUsername() {
+        return username;
+    }
+    private void sendMessage(String message) {
+        writer.println(message);
+    }
 
     @Override
     public void run() {
@@ -52,6 +60,12 @@ public class ClientHandler implements Runnable {
                         String[] parts = message.split(" ", 3); // Limiting to 3 parts: "/msg", "[username]", "[message]"
                         String recipientUsername = parts[1];
                         String actualMessage = parts[2];
+                        for(ClientHandler client : Server.clients) {
+                            if(ClientHandler.getUsername().equals(recipientUsername)) {
+                                client.sendMessage("Private message from" + username + " " + actualMessage);
+                                break;
+                            }
+                        }
                     } else {
                         // Output the received message to the server's console
                         System.out.println("Received from client: " + message);
