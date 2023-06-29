@@ -58,6 +58,10 @@ public class ClientHandler implements Runnable {
                     if(message.startsWith("/msg")) {
                         // Split the message into parts
                         String[] parts = message.split(" ", 3); // Limiting to 3 parts: "/msg", "[username]", "[message]"
+                        if(parts.length < 3) {
+                            writer.println("Invalid private message format. Please use: /msg [username] [message]");
+                            continue;
+                        }
                         String recipientUsername = parts[1];
                         String actualMessage = parts[2];
                         for(ClientHandler client : Server.clients) {
