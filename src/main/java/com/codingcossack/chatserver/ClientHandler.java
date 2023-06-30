@@ -11,7 +11,6 @@ public class ClientHandler implements Runnable {
         this.clientSocket = clientSocket;
     }
     private String username;
-    private String password;
     private String getUsername() {
         return username;
     }
@@ -44,6 +43,7 @@ public class ClientHandler implements Runnable {
                 writer.println("Login successful");
                 // After successful authentication
                 Server.clients.add(this);
+                this.username = username; // assign value to username field
 
                 // Infinite loop to continually read messages from the client
                 while (true) {
@@ -65,7 +65,7 @@ public class ClientHandler implements Runnable {
                         String recipientUsername = parts[1];
                         String actualMessage = parts[2];
                         for(ClientHandler client : Server.clients) {
-                            if(ClientHandler.getUsername().equals(recipientUsername)) {
+                            if(client.getUsername().equals(recipientUsername)) {
                                 client.sendMessage("Private message from" + username + " " + actualMessage);
                                 break;
                             }
