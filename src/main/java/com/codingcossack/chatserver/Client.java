@@ -9,8 +9,11 @@ import java.io.OutputStream;          // For writing bytes to server socket
 import java.io.BufferedReader;        // For reading text from a character-input stream
 import java.io.InputStreamReader;   // For converting bytes to characters
 import java.io.PrintWriter;           // For writing text to a character-output stream
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 public class Client {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(Client.class);
     public static void main(String[] args) {
         int portNumber = 8080;
 
@@ -44,9 +47,10 @@ public class Client {
 
             if ("Login succesfull".equals(loginResult)) {
                 while (true) {
-                    System.out.print("Enter a message to send to the server: ");
                     // Read a message from the user's input (console).
                     String message = consoleReader.readLine();
+
+                    LOGGER.info("Enter a message to send to the server: {}", message);
                     // Break the loop if the user wants to quit. For example, if the message is "quit".
                     if ("quit".equalsIgnoreCase(message)) {
                         break;
@@ -59,7 +63,7 @@ public class Client {
                 }
             }
         } catch(IOException e){
-            e.printStackTrace();
+            LOGGER.error("An error occurred while trying to communicate with the server {}", e);
         }
     }
 }
