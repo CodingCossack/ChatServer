@@ -2,6 +2,8 @@ package com.codingcossack.chatserver;
 
 import java.io.*;
 import java.net.Socket;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ClientHandler implements Runnable {
     // Wrap the output stream with a PrintWriter, auto-flushing enabled, to easily write text lines to the client
@@ -18,6 +20,8 @@ public class ClientHandler implements Runnable {
         writer.println(message);
     }
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(ClientHandler.class);
+
     @Override
     public void run() {
         try {
@@ -33,6 +37,8 @@ public class ClientHandler implements Runnable {
             // Wrap the output stream with a PrintWriter, auto-flushing enabled, to easily write text lines to the client
             writer = new PrintWriter(outputStream, true);
 
+            LOGGER.info("Handling Client {}", clientSocket);
+
             writer.println("Enter username: ");
             String username = reader.readLine();
 
@@ -44,6 +50,8 @@ public class ClientHandler implements Runnable {
                 // After successful authentication
                 Server.clients.add(this);
                 this.username = username; // assign value to username field
+
+                LOGGER.info("User {} logged in successfully", username);
 
                 // Infinite loop to continually read messages from the client
                 while (true) {
@@ -72,7 +80,7 @@ public class ClientHandler implements Runnable {
                         }
                     } else {
                         // Output the received message to the server's console
-                        System.out.println("Received from client: " + message);
+                        LOGGER.info("Received from client: {}", message);
                         // Send a response back to the client
                         broadcastMessage("Message from " + username + ": " + message);
                     }
@@ -83,19 +91,20 @@ public class ClientHandler implements Runnable {
                 }
             } else {
                 writer.println("Login failed");
+                LOGGER.warn("User {} failed to login", username);
             }
         } catch (IOException e) {
                 // Output any IO exceptions that occur
-                e.printStackTrace();
+                LOGGER.error("An error occurred while handling client {}: {}", clientSocket, e);
             } finally {
                 try {
                     clientSocket.close();
                 } catch (IOException e){
-                    e.printStackTrace();
+                    LOGGER.error("An error occurred while closing client socket {}: {}", clientSocket, e);
                 }
                 // This block will run whether an exception is thrown or not
                 Server.clients.remove(this);    // Remove client on disconnect
-                System.out.println("Client disconnected");
+                LOGGER.info("Client {} disconnected", clientSocket);
             }
 
 
