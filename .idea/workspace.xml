@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b6b1e0fd-8cc6-45b3-897d-3b791eb3e804" name="Changes" comment="feat(Client): Enhance with logging capability&#10;&#10;Enhanced the Client class by adding SLF4J logging. Logging is used to track client-side activities such as successful connection to the server, message sending and receiving, and disconnection. This addition will aid in identifying issues related to the client's interaction with the server, leading to improved reliability and performance.">
+    <list default="true" id="b6b1e0fd-8cc6-45b3-897d-3b791eb3e804" name="Changes" comment="feat(ClientHandler): debug logger added to broadcastMessage">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/codingcossack/chatserver/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codingcossack/chatserver/ClientHandler.java" afterDir="false" />
     </list>
@@ -60,7 +60,7 @@
       <option name="presentableId" value="Default" />
       <updated>1686224007400</updated>
       <workItem from="1686224008817" duration="55269000" />
-      <workItem from="1688054895366" duration="9297000" />
+      <workItem from="1688054895366" duration="10607000" />
     </task>
     <task id="LOCAL-00001" summary="Server &amp; client communication">
       <created>1686242558369</created>
@@ -167,7 +167,14 @@
       <option name="project" value="LOCAL" />
       <updated>1688216258645</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="feat(ClientHandler): debug logger added to broadcastMessage">
+      <created>1688219611940</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1688219611940</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -186,7 +193,8 @@
     <MESSAGE value="fix(ClientHandler): correct non-static method reference&#10;&#10;Resolved an issue where 'getUsername()' was being called statically. The method is now properly invoked on an instance of the 'ClientHandler' class, allowing the code to compile and run as intended." />
     <MESSAGE value="feat(Server): Add logging capability&#10;&#10;Incorporated SLF4J logging in the Server class. Logging is now used to inform of server start-up and shut-down events, successful user registrations, as well as socket connection and disconnection. This will provide valuable information on server-side activity and facilitate troubleshooting in the case of any unexpected server behaviors." />
     <MESSAGE value="feat(Client): Enhance with logging capability&#10;&#10;Enhanced the Client class by adding SLF4J logging. Logging is used to track client-side activities such as successful connection to the server, message sending and receiving, and disconnection. This addition will aid in identifying issues related to the client's interaction with the server, leading to improved reliability and performance." />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(Client): Enhance with logging capability&#10;&#10;Enhanced the Client class by adding SLF4J logging. Logging is used to track client-side activities such as successful connection to the server, message sending and receiving, and disconnection. This addition will aid in identifying issues related to the client's interaction with the server, leading to improved reliability and performance." />
+    <MESSAGE value="feat(ClientHandler): debug logger added to broadcastMessage" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(ClientHandler): debug logger added to broadcastMessage" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

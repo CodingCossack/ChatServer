@@ -42,8 +42,29 @@ public class ClientHandler implements Runnable {
             writer.println("Enter username: ");
             String username = reader.readLine();
 
+            if (username == null || username.isEmpty()) {
+                writer.println("Username cannot be empty");
+                LOGGER.warn("Empty username provided");
+                return; // Exit the method
+            }
+
+            if (username.length() > 20) {
+                writer.println("Username too long. Enter maximum of 20 characters");
+                LOGGER.warn("Username too long: {}", username);
+            }
+
             writer.println("Enter password: ");
             String password = reader.readLine();
+
+            if (password == null || password.isEmpty()) {
+                writer.println("Password cannot be empty");
+                LOGGER.warn("Empty password provided for user: {}", username);
+            }
+
+            if (password.length() > 30) {
+                writer.println("Password entered too long. Enter 30 characters maximum");
+                LOGGER.warn("Password entered too long: {}", username);
+            }
 
             if (Server.userCredentials.containsKey(username) && Server.userCredentials.get(username).equals(password)) {
                 writer.println("Login successful");
