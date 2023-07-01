@@ -83,6 +83,16 @@ public class ClientHandler implements Runnable {
                     if (message == null) {
                         break;
                     }
+                    if (message.isEmpty()) {
+                        writer.println("Error: Message cannot be empty");
+                        LOGGER.warn("Empty message input");
+                        continue;
+                    }
+                    if(message.length() > 2000) {
+                        writer.println("Error: message too long. Maximum is 2000 characters");
+                        LOGGER.warn("message too long");
+                        continue;
+                    }
                     // Check if the message is a private message
                     if(message.startsWith("/msg")) {
                         // Split the message into parts
