@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b6b1e0fd-8cc6-45b3-897d-3b791eb3e804" name="Changes" comment="feat(Client): Enhance with logging capability&#10;&#10;Enhanced the Client class by adding SLF4J logging. Logging is used to track client-side activities such as successful connection to the server, message sending and receiving, and disconnection. This addition will aid in identifying issues related to the client's interaction with the server, leading to improved reliability and performance." />
+    <list default="true" id="b6b1e0fd-8cc6-45b3-897d-3b791eb3e804" name="Changes" comment="feat(Client): Enhance with logging capability&#10;&#10;Enhanced the Client class by adding SLF4J logging. Logging is used to track client-side activities such as successful connection to the server, message sending and receiving, and disconnection. This addition will aid in identifying issues related to the client's interaction with the server, leading to improved reliability and performance.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/codingcossack/chatserver/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codingcossack/chatserver/ClientHandler.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -57,7 +60,7 @@
       <option name="presentableId" value="Default" />
       <updated>1686224007400</updated>
       <workItem from="1686224008817" duration="55269000" />
-      <workItem from="1688054895366" duration="7716000" />
+      <workItem from="1688054895366" duration="9297000" />
     </task>
     <task id="LOCAL-00001" summary="Server &amp; client communication">
       <created>1686242558369</created>
@@ -157,7 +160,14 @@
       <option name="project" value="LOCAL" />
       <updated>1688145641691</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="feat(Client): Enhance with logging capability&#10;&#10;Enhanced the Client class by adding SLF4J logging. Logging is used to track client-side activities such as successful connection to the server, message sending and receiving, and disconnection. This addition will aid in identifying issues related to the client's interaction with the server, leading to improved reliability and performance.">
+      <created>1688216258645</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1688216258645</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -116,5 +116,6 @@ public class ClientHandler implements Runnable {
                 client.writer.println(message);
             }
         }
+        LOGGER.debug("Broadcast message to all clients {}", message);
     }
 }
