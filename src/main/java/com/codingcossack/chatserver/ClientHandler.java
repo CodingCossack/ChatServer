@@ -2,6 +2,8 @@ package com.codingcossack.chatserver;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Iterator;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -59,6 +61,7 @@ public class ClientHandler implements Runnable {
             if (password == null || password.isEmpty()) {
                 writer.println("Password cannot be empty");
                 LOGGER.warn("Empty password provided for user: {}", username);
+                return; // Exit the method if password is null or empty
             }
 
             if (password.length() > 30) {
@@ -143,10 +146,16 @@ public class ClientHandler implements Runnable {
     public void broadcastMessage(String message) {
         // Iterate through the list of connected clients and send the message to each one
         synchronized (Server.clients) {
-            for (ClientHandler client : Server.clients) {
-                client.writer.println(message);
+            Iterator<ClientHandler> iterator = Server.clients.iterator();
+            while (iterator.hasNext()) {
+                ClientHandler client = iterator.next();
+                try {
+                    client.writer.println(message);
+                } catch (Exception e) {
+                    LOGGER.warn("Failed to send message to client {}: {}", client.clientSocket, e);
+                    iterator.remove();
+                }
             }
         }
-        LOGGER.debug("Broadcast message to all clients {}", message);
     }
 }

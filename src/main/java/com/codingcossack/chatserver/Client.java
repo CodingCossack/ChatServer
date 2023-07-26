@@ -45,7 +45,7 @@ public class Client {
             String loginResult = reader.readLine();
             System.out.println(loginResult);
 
-            if ("Login succesfull".equals(loginResult)) {
+            if ("Login successful".equals(loginResult)) {
                 while (true) {
                     // Read a message from the user's input (console).
                     String message = consoleReader.readLine();

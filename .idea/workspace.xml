@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b6b1e0fd-8cc6-45b3-897d-3b791eb3e804" name="Changes" comment="feat(ClientHandler): Implement input validation for username/password&#10;&#10;Added methods for username and password validation.&#10;These methods are called during the registration and login process to ensure users are only using valid credentials according to specified rules.">
+    <list default="true" id="b6b1e0fd-8cc6-45b3-897d-3b791eb3e804" name="Changes" comment="feat(ClientHandler): Improve error handling for broadcastMessage&#10;&#10;- Implemented Iterator for client list in broadcastMessage method.&#10;- Improved error handling during message broadcast.&#10;- In case of disconnected client, server now catches exception and removes client from the list.&#10;- Prevents server from trying to communicate repeatedly with disconnected clients.&#10;- Enhances overall server performance.&#10;- Safe modification of client list during iteration, avoids potential ConcurrentModificationException.">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatServer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ChatServer.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/codingcossack/chatserver/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codingcossack/chatserver/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/codingcossack/chatserver/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codingcossack/chatserver/ClientHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -29,28 +32,32 @@
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": -1
+}]]></component>
   <component name="ProjectId" id="2QvB77Ex6qofzbcu98Wr6vUBBWE" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "master",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "build.tools",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;build.tools&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -60,7 +67,11 @@
       <option name="presentableId" value="Default" />
       <updated>1686224007400</updated>
       <workItem from="1686224008817" duration="55269000" />
-      <workItem from="1688054895366" duration="11644000" />
+      <workItem from="1688054895366" duration="13301000" />
+      <workItem from="1688505195557" duration="329000" />
+      <workItem from="1688986181132" duration="936000" />
+      <workItem from="1689933844949" duration="120000" />
+      <workItem from="1690378701005" duration="2091000" />
     </task>
     <task id="LOCAL-00001" summary="Server &amp; client communication">
       <created>1686242558369</created>
@@ -181,7 +192,14 @@
       <option name="project" value="LOCAL" />
       <updated>1688221997866</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="feat(ClientHandler): Implement input validation for messages&#10;&#10;- Checking the length of the incoming messages, rejecting those exceeding a certain threshold to prevent abuse or accidental misuse.&#10;- Rejecting messages containing certain potentially dangerous or inappropriate characters or patterns.&#10;- Providing appropriate feedback to the client when a message is rejected due to these validation rules.">
+      <created>1688224876858</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1688224876858</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -202,7 +220,9 @@
     <MESSAGE value="feat(Client): Enhance with logging capability&#10;&#10;Enhanced the Client class by adding SLF4J logging. Logging is used to track client-side activities such as successful connection to the server, message sending and receiving, and disconnection. This addition will aid in identifying issues related to the client's interaction with the server, leading to improved reliability and performance." />
     <MESSAGE value="feat(ClientHandler): debug logger added to broadcastMessage" />
     <MESSAGE value="feat(ClientHandler): Implement input validation for username/password&#10;&#10;Added methods for username and password validation.&#10;These methods are called during the registration and login process to ensure users are only using valid credentials according to specified rules." />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(ClientHandler): Implement input validation for username/password&#10;&#10;Added methods for username and password validation.&#10;These methods are called during the registration and login process to ensure users are only using valid credentials according to specified rules." />
+    <MESSAGE value="feat(ClientHandler): Implement input validation for messages&#10;&#10;- Checking the length of the incoming messages, rejecting those exceeding a certain threshold to prevent abuse or accidental misuse.&#10;- Rejecting messages containing certain potentially dangerous or inappropriate characters or patterns.&#10;- Providing appropriate feedback to the client when a message is rejected due to these validation rules." />
+    <MESSAGE value="feat(ClientHandler): Improve error handling for broadcastMessage&#10;&#10;- Implemented Iterator for client list in broadcastMessage method.&#10;- Improved error handling during message broadcast.&#10;- In case of disconnected client, server now catches exception and removes client from the list.&#10;- Prevents server from trying to communicate repeatedly with disconnected clients.&#10;- Enhances overall server performance.&#10;- Safe modification of client list during iteration, avoids potential ConcurrentModificationException." />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(ClientHandler): Improve error handling for broadcastMessage&#10;&#10;- Implemented Iterator for client list in broadcastMessage method.&#10;- Improved error handling during message broadcast.&#10;- In case of disconnected client, server now catches exception and removes client from the list.&#10;- Prevents server from trying to communicate repeatedly with disconnected clients.&#10;- Enhances overall server performance.&#10;- Safe modification of client list during iteration, avoids potential ConcurrentModificationException." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

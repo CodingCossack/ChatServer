@@ -42,7 +42,7 @@ public class Server {
                 new Thread(clientHandler).start();
             }
         } catch(IOException e) {
-            e.printStackTrace();
+            LOGGER.error("An error occurred: ", e);
         }
     }
 }
